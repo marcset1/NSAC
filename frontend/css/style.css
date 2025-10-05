@@ -1,0 +1,327 @@
+/* ========== VARIABLES ========== */
+:root {
+    --nasa-blue: #0B3D91;
+    --space-black: #000000;
+    --earth-green: #2ECC71;
+    --crop-gold: #F39C12;
+    --water-blue: #3498DB;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+}
+
+/* ========== RESET ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    overflow-x: hidden;
+}
+
+/* ========== LANDING CONTAINER ========== */
+.landing-container {
+    min-height: 100vh;
+}
+
+/* ========== HERO SECTION ========== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '🌍';
+    position: absolute;
+    font-size: 30rem;
+    opacity: 0.05;
+    animation: rotate 60s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.hero-content {
+    max-width: 900px;
+    position: relative;
+    z-index: 1;
+}
+
+.title {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    animation: fadeInDown 1s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tagline {
+    font-size: 1.5rem;
+    margin-bottom: 50px;
+    opacity: 0.95;
+    line-height: 1.6;
+    animation: fadeIn 1s ease 0.3s both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Statistiques */
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin: 50px 0;
+    flex-wrap: wrap;
+    animation: fadeIn 1s ease 0.6s both;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-value {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--crop-gold);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.stat-label {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-top: 8px;
+}
+
+/* Bouton principal */
+.btn-start {
+    background: var(--earth-green);
+    color: white;
+    border: none;
+    padding: 20px 60px;
+    font-size: 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    animation: fadeIn 1s ease 0.9s both;
+}
+
+.btn-start:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    background: #27AE60;
+}
+
+.btn-start:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.hint {
+    margin-top: 20px;
+    font-size: 0.95rem;
+    opacity: 0.8;
+    animation: fadeIn 1s ease 1.2s both;
+}
+
+/* ========== FEATURES SECTION ========== */
+.features {
+    padding: 80px 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.features h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: rgba(255,255,255,0.15);
+    padding: 40px 30px;
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.feature-card:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-10px);
+    border-color: var(--earth-green);
+}
+
+.feature-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--crop-gold);
+}
+
+.feature-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* ========== NASA DATA SECTION ========== */
+.nasa-data {
+    padding: 80px 20px;
+}
+
+.nasa-data h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+}
+
+.data-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.data-card {
+    background: white;
+    color: var(--text-dark);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    border-left: 6px solid var(--water-blue);
+}
+
+.data-card.smap {
+    border-left-color: #9B59B6;
+}
+
+.data-card.gpm {
+    border-left-color: #1ABC9C;
+}
+
+.data-card.modis {
+    border-left-color: #8BC34A;
+}
+
+.data-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+
+.data-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: var(--nasa-blue);
+}
+
+.data-card strong {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: var(--text-light);
+}
+
+.data-card p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.data-badge {
+    display: inline-block;
+    background: var(--earth-green);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+    padding: 40px 20px;
+    text-align: center;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+}
+
+.footer p {
+    margin: 5px 0;
+    opacity: 0.8;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+    
+    .tagline {
+        font-size: 1.2rem;
+    }
+    
+    .stats {
+        gap: 30px;
+    }
+    
+    .stat-value {
+        font-size: 2rem;
+    }
+    
+    .btn-start {
+        padding: 16px 40px;
+        font-size: 1.2rem;
+    }
+    
+    .features h2,
+    .nasa-data h2 {
+        font-size: 2rem;
+    }
+}
+
+/* ========== ANIMATIONS SMOOTH ========== */
+* {
+    scroll-behavior: smooth;
+}

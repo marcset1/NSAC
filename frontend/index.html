@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Farm Navigators</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="landing-container">
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-content">
+                <h1 class="title">
+                    🛰️ NASA Farm Navigators
+                </h1>
+                <p class="tagline">
+                    Utilisez les données satellites de la NASA pour devenir un expert agricole
+                </p>
+                
+                <!-- Statistiques -->
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-value">20+</span>
+                        <span class="stat-label">Satellites NASA</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">4</span>
+                        <span class="stat-label">Régions Mondiales</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">+58%</span>
+                        <span class="stat-label">Rendement avec NASA</span>
+                    </div>
+                </div>
+
+                <!-- CTA Principal -->
+                <button class="btn-start" onclick="startAdventure()">
+                    🚀 Commencer l'Aventure
+                </button>
+
+                <p class="hint">
+                    💡 Vous passerez d'abord un quiz rapide sur les données NASA
+                </p>
+            </div>
+        </header>
+
+        <!-- Features Section -->
+        <section class="features">
+            <h2>Comment ça marche?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>1. Apprenez</h3>
+                    <p>Répondez à 5 questions sur les satellites SMAP, GPM et MODIS</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌾</div>
+                    <h3>2. Gérez</h3>
+                    <p>Prenez des décisions basées sur les vraies données NASA</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>3. Optimisez</h3>
+                    <p>Maximisez votre rendement en utilisant l'intelligence spatiale</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>4. Progressez</h3>
+                    <p>Débloquez badges, niveaux et devenez expert NASA</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Données NASA Section -->
+        <section class="nasa-data">
+            <h2>📡 Données NASA Intégrées</h2>
+            
+            <div class="data-cards">
+                <div class="data-card smap">
+                    <h3>🗺️ SMAP</h3>
+                    <p><strong>Soil Moisture Active Passive</strong></p>
+                    <p>Mesure l'humidité du sol en temps réel depuis l'espace</p>
+                    <span class="data-badge">Résolution: 9-36 km</span>
+                </div>
+                
+                <div class="data-card gpm">
+                    <h3>🌧️ GPM</h3>
+                    <p><strong>Global Precipitation Measurement</strong></p>
+                    <p>Prévisions de précipitations jusqu'à 7 jours</p>
+                    <span class="data-badge">Mise à jour: 3h</span>
+                </div>
+                
+                <div class="data-card modis">
+                    <h3>🌿 MODIS</h3>
+                    <p><strong>Moderate Resolution Imaging Spectroradiometer</strong></p>
+                    <p>Analyse la santé des cultures via l'indice NDVI</p>
+                    <span class="data-badge">Résolution: 250m</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Propulsé par les données ouvertes de la NASA</p>
+            <p>NASA Space Apps Challenge 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        function startAdventure() {
+            // Redirection vers quiz
+            window.location.href = 'quiz.html';
+        }
+    </script>
+</body>
+</html>

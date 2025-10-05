@@ -1,0 +1,155 @@
+:root {
+    --nasa-blue: #0B3D91;
+    --success: #27AE60;
+    --error: #E74C3C;
+    --warning: #F39C12;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quiz-container {
+    max-width: 900px;
+    width: 90%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+
+.quiz-header {
+    background: var(--nasa-blue);
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+.progress-bar {
+    height: 8px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 4px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--success);
+    transition: width 0.5s ease;
+}
+
+.quiz-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-size: 0.95rem;
+}
+
+.timer {
+    background: var(--error);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.quiz-main {
+    padding: 40px;
+}
+
+.question-text {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.option {
+    padding: 20px;
+    background: #f8f9fa;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.option:hover {
+    background: #e8f5e9;
+    border-color: var(--success);
+    transform: translateX(5px);
+}
+
+.option.selected {
+    border-color: var(--nasa-blue);
+    background: #e3f2fd;
+}
+
+.option.correct {
+    border-color: var(--success);
+    background: #d4edda;
+    animation: pulse 0.5s ease;
+}
+
+.option.wrong {
+    border-color: var(--error);
+    background: #f8d7da;
+    animation: shake 0.5s ease;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.explanation-panel {
+    background: #fff9e6;
+    border-top: 4px solid var(--warning);
+    padding: 30px 40px;
+}
+
+.explanation-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.result-icon {
+    font-size: 2.5rem;
+}
+
+.btn-next {
+    background: var(--nasa-blue);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-next:hover {
+    background: #093066;
+    transform: translateY(-2px);
+}

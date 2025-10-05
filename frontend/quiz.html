@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Data Training - Quiz</title>
+    <link rel="stylesheet" href="css/quiz.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <!-- Header avec progression -->
+        <header class="quiz-header">
+            <h1>🎓 NASA Data Training Center</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="quiz-progress"></div>
+            </div>
+            <div class="quiz-meta">
+                <span class="question-counter">
+                    Question <span id="current-q">1</span> / <span id="total-q">5</span>
+                </span>
+                <span class="timer" id="timer">20s</span>
+                <span class="score">Score: <span id="score">0</span>/5</span>
+            </div>
+        </header>
+
+        <!-- Zone de question -->
+        <main class="quiz-main">
+            <div class="question-card">
+                <h2 class="question-text" id="question-text">
+                    <!-- Question dynamique -->
+                </h2>
+                
+                <div class="question-image" id="question-image" style="display:none;">
+                    <!-- Image satellite si type image -->
+                </div>
+                
+                <div class="options-container" id="options-container">
+                    <!-- Options générées dynamiquement -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Explication après réponse -->
+        <div class="explanation-panel" id="explanation" style="display:none;">
+            <div class="explanation-header">
+                <span class="result-icon" id="result-icon">✅</span>
+                <h3 id="result-title">Bonne réponse!</h3>
+            </div>
+            <p id="explanation-text"></p>
+            <button class="btn-next" id="btn-next" onclick="nextQuestion()">
+                Question Suivante →
+            </button>
+        </div>
+
+        <!-- Écran final quiz -->
+        <div class="quiz-results" id="quiz-results" style="display:none;">
+            <h2>🎉 Quiz Terminé!</h2>
+            <div class="final-score">
+                <div class="score-display">
+                    <span class="score-number" id="final-score">4</span>
+                    <span class="score-max">/ 5</span>
+                </div>
+                <div class="stars" id="stars-display"></div>
+            </div>
+
+            <div class="bonus-info">
+                <h3>Bonus de Départ</h3>
+                <p id="bonus-description"></p>
+                <div class="bonus-preview">
+                    <div class="bonus-item">
+                        <span>💧 Eau:</span>
+                        <span id="bonus-water">+200 m³</span>
+                    </div>
+                    <div class="bonus-item">
+                        <span>💰 Argent:</span>
+                        <span id="bonus-money">+100 €</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-start-game" onclick="startGame()">
+                🚀 Commencer la Partie
+            </button>
+        </div>
+    </div>
+
+    <script src="js/quiz.js"></script>
+</body>
+</html>

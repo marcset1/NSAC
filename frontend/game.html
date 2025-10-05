@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Farm Navigators - Jeu</title>
+    
+    <!-- Leaflet pour la carte -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- CSS personnalisé -->
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+    <div class="game-container">
+        
+        <!-- ========== HEADER ========== -->
+        <header class="game-header">
+            <div class="farm-info">
+                <h1>🏠 Ma Ferme - Marc SALLA</h1>
+                <div class="season-info">
+                    <span class="season">🌱 Printemps</span>
+                    <span class="day-counter">Jour <span id="current-day">1</span> / <span id="max-days">90</span></span>
+                </div>
+            </div>
+            
+            <div class="resources-panel">
+                <div class="resource water">
+                    <span class="icon">💧</span>
+                    <div class="resource-info">
+                        <span class="label">Eau</span>
+                        <span class="value" id="water-value">1000</span>
+                        <span class="unit">m³</span>
+                    </div>
+                </div>
+                
+                <div class="resource money">
+                    <span class="icon">💰</span>
+                    <div class="resource-info">
+                        <span class="label">Argent</span>
+                        <span class="value" id="money-value">500</span>
+                        <span class="unit">€</span>
+                    </div>
+                </div>
+                
+                <div class="resource points">
+                    <span class="icon">🌟</span>
+                    <div class="resource-info">
+                        <span class="label">Points NASA</span>
+                        <span class="value" id="points-value">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ========== CONTENU PRINCIPAL ========== -->
+        <main class="game-main">
+            
+            <!-- COLONNE GAUCHE: Parcelle -->
+            <section class="left-panel">
+                
+                <!-- Parcelle de culture -->
+                <div class="farm-plot-container">
+                    <div class="plot-header">
+                        <h2>🌾 Parcelle #1 - Maïs</h2>
+                        <button class="btn-info" onclick="showPlotInfo()">ℹ️ Info</button>
+                    </div>
+                    
+                    <div class="plot-visual" id="plot-visual">
+                        <!-- Ciel -->
+                        <div class="sky" id="sky">
+                            <div class="sun" id="sun">☀️</div>
+                            <div class="clouds" id="clouds">☁️</div>
+                        </div>
+                        
+                        <!-- Culture -->
+                        <div class="crop-container">
+                            <div class="crop" id="crop">
+                                🌱
+                            </div>
+                        </div>
+                        
+                        <!-- Sol -->
+                        <div class="soil" id="soil">
+                            <div class="soil-moisture-indicator"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Statistiques de la parcelle -->
+                    <div class="plot-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">❤️</div>
+                            <div class="stat-content">
+                                <span class="stat-label">Santé Culture</span>
+                                <div class="stat-bar">
+                                    <div class="stat-bar-fill health-bar" id="health-bar" style="width: 70%"></div>
+                                </div>
+                                <span class="stat-value" id="health-value">70%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">🌿</div>
+                            <div class="stat-content">
+                                <span class="stat-label">NDVI (MODIS)</span>
+                                <div class="stat-bar">
+                                    <div class="stat-bar-fill ndvi-bar" id="ndvi-bar" style="width: 45%"></div>
+                                </div>
+                                <span class="stat-value" id="ndvi-value">0.45</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">💧</div>
+                            <div class="stat-content">
+                                <span class="stat-label">Humidité Sol (SMAP)</span>
+                                <div class="stat-bar">
+                                    <div class="stat-bar-fill soil-bar" id="soil-bar" style="width: 25%"></div>
+                                </div>
+                                <span class="stat-value" id="soil-value">25%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">🌡️</div>
+                            <div class="stat-content">
+                                <span class="stat-label">Température</span>
+                                <span class="stat-value" id="temp-value">22°C</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Prévisions météo -->
+                <div class="weather-forecast">
+                    <h3>🌤️ Prévisions GPM (7 jours)</h3>
+                    <div class="forecast-days" id="forecast-container">
+                        <!-- Généré dynamiquement -->
+                    </div>
+                </div>
+                
+            </section>
+
+            <!-- COLONNE DROITE: Données NASA & Actions -->
+            <section class="right-panel">
+                
+                <!-- Panel Données NASA -->
+                <div class="nasa-panel">
+                    <div class="panel-header">
+                        <h2>📡 NASA Data Center</h2>
+                        <button class="btn-help" onclick="showNASAHelp()">❓ Aide</button>
+                    </div>
+                    
+                    <!-- Onglets -->
+                    <div class="nasa-tabs">
+                        <button class="tab-btn active" onclick="switchTab('smap')" data-tab="smap">
+                            🗺️ SMAP
+                        </button>
+                        <button class="tab-btn" onclick="switchTab('gpm')" data-tab="gpm">
+                            🌧️ GPM
+                        </button>
+                        <button class="tab-btn" onclick="switchTab('modis')" data-tab="modis">
+                            🌿 MODIS
+                        </button>
+                    </div>
+                    
+                    <!-- Contenu SMAP -->
+                    <div class="tab-content active" id="tab-smap">
+                        <div class="data-section">
+                            <h4>Humidité du Sol</h4>
+                            <p class="data-description">
+                                Le satellite SMAP mesure l'humidité du sol en temps réel. 
+                                Optimal pour le maïs: 25-35%
+                            </p>
+                            
+                            <!-- Mini carte Leaflet -->
+                            <div id="smap-map" class="mini-map"></div>
+                            
+                            <div class="data-value-box">
+                                <span class="data-label">Humidité actuelle:</span>
+                                <span class="data-value large" id="smap-current">25%</span>
+                                <span class="data-status warning" id="smap-status">⚠️ Sous-optimal</span>
+                            </div>
+                            
+                            <div class="data-trend">
+                                <span>Tendance 7 jours:</span>
+                                <span class="trend-indicator down">📉 Décroissante</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenu GPM -->
+                    <div class="tab-content" id="tab-gpm">
+                        <div class="data-section">
+                            <h4>Précipitations</h4>
+                            <p class="data-description">
+                                GPM mesure les précipitations globales. 
+                                Aide à planifier l'irrigation.
+                            </p>
+                            
+                            <!-- Graphique simple avec canvas -->
+                            <canvas id="gpm-chart" class="data-chart"></canvas>
+                            
+                            <div class="data-value-box">
+                                <span class="data-label">Dernières 24h:</span>
+                                <span class="data-value large" id="gpm-24h">5mm</span>
+                            </div>
+                            
+                            <div class="forecast-alert">
+                                <span class="alert-icon">🌧️</span>
+                                <span class="alert-text" id="gpm-forecast">
+                                    Pluie prévue dans 3 jours (15mm)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenu MODIS -->
+                    <div class="tab-content" id="tab-modis">
+                        <div class="data-section">
+                            <h4>Santé Végétation (NDVI)</h4>
+                            <p class="data-description">
+                                MODIS analyse la santé des cultures via l'indice NDVI.
+                                Plus proche de 1.0 = végétation saine.
+                            </p>
+                            
+                            <!-- Visualisation NDVI -->
+                            <div class="ndvi-visual">
+                                <div class="ndvi-scale">
+                                    <div class="scale-bar">
+                                        <div class="scale-gradient"></div>
+                                        <div class="scale-marker" id="ndvi-marker" style="left: 45%"></div>
+                                    </div>
+                                    <div class="scale-labels">
+                                        <span>0.0</span>
+                                        <span>0.3</span>
+                                        <span>0.6</span>
+                                        <span>1.0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="data-value-box">
+                                <span class="data-label">NDVI actuel:</span>
+                                <span class="data-value large" id="modis-ndvi">0.45</span>
+                                <span class="data-status warning">⚠️ Moyen</span>
+                            </div>
+                            
+                            <canvas id="ndvi-history-chart" class="data-chart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Recommandations IA -->
+                    <div class="recommendations">
+                        <h4>💡 Recommandations NASA</h4>
+                        <ul id="recommendations-list">
+                            <li class="recommendation urgent">
+                                <span class="rec-icon">🚨</span>
+                                <span class="rec-text">Sol sec détecté par SMAP. Irrigation recommandée.</span>
+                            </li>
+                            <li class="recommendation info">
+                                <span class="rec-icon">ℹ️</span>
+                                <span class="rec-text">GPM prévoit pluie J+3. Vous pouvez économiser l'eau.</span>
+                            </li>
+                            <li class="recommendation success">
+                                <span class="rec-icon">✅</span>
+                                <span class="rec-text">NDVI en amélioration. Continuez la surveillance.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </section>
+
+        </main>
+
+        <!-- ========== FOOTER - ACTIONS ========== -->
+        <footer class="game-footer">
+            <div class="actions-container">
+                
+                <button class="action-btn irrigate" onclick="showActionModal('irrigate')">
+                    <div class="btn-icon">💧</div>
+                    <div class="btn-content">
+                        <span class="btn-label">Irriguer</span>
+                        <span class="btn-cost">-50€ / 100m³</span>
+                    </div>
+                </button>
+                
+                <button class="action-btn fertilize" onclick="showActionModal('fertilize')">
+                    <div class="btn-icon">🌾</div>
+                    <div class="btn-content">
+                        <span class="btn-label">Fertiliser</span>
+                        <span class="btn-cost">-100€</span>
+                    </div>
+                </button>
+                
+                <button class="action-btn observe" onclick="observeAndWait()">
+                    <div class="btn-icon">🔍</div>
+                    <div class="btn-content">
+                        <span class="btn-label">Observer</span>
+                        <span class="btn-cost">Gratuit</span>
+                    </div>
+                </button>
+                
+                <button class="action-btn next-day primary" onclick="nextDay()">
+                    <div class="btn-icon">⏩</div>
+                    <div class="btn-content">
+                        <span class="btn-label">Jour Suivant</span>
+                        <span class="btn-cost">Avancer temps</span>
+                    </div>
+                </button>
+                
+            </div>
+            
+            <!-- Barre de progression saison -->
+            <div class="season-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="season-progress" style="width: 1%"></div>
+                </div>
+                <span class="progress-label">Progression saison: 1 / 90 jours</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- ========== MODALS ========== -->
+    
+    <!-- Modal Action (Irrigation/Fertilisation) -->
+    <div id="action-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">💧 Irrigation</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            
+            <div class="modal-body" id="modal-body">
+                <!-- Contenu dynamique -->
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal()">Annuler</button>
+                <button class="btn-primary" id="modal-confirm" onclick="confirmAction()">Confirmer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications -->
+    <div id="notifications-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
